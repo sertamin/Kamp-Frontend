@@ -1,6 +1,4 @@
-import { listLazyRoutes } from '@angular/compiler/src/aot/lazy_routes';
 import { Injectable } from '@angular/core';
-import { ProductComponent } from '../components/product/product.component';
 import { CartItem } from '../models/cartItem';
 import { CartItems } from '../models/cartItems';
 import { Product } from '../models/product';
@@ -9,38 +7,27 @@ import { Product } from '../models/product';
   providedIn: 'root'
 })
 export class CartService {
-  list() : any[] {
-    throw new Error('Method not implemented.');
-  }
 
   constructor() { }
 
-
   addToCart(product:Product){
-  let item = CartItems.find(c=>c.product.productId===product.productId);
-  if(item){
-    item.quantity+=1;
-  }else{
-    let cartItem = new CartItem();
-    cartItem.product = product;
-    cartItem.quantity = 1;
-    CartItems.push(cartItem)
+    let item = CartItems.find(c=>c.product.productId===product.productId);
+    if(item){
+      item.quantity+=1;
+    }else{
+      let cartItem = new CartItem();
+      cartItem.product = product;
+      cartItem.quantity =1;
+      CartItems.push(cartItem)
+    }
   }
-}
 
-removeFromCart(product:Product){
-  let item:CartItem = CartItems.find(c=>c.product.productId===product.productId);
-  CartItems.splice(CartItems.indexOf(item),1);
-
-}
+  removeFromCart(product:Product){
+    let item:CartItem = CartItems.find(c=>c.product.productId===product.productId);
+    CartItems.splice(CartItems.indexOf(item),1);
+  }
 
   list():CartItem[]{
     return CartItems;
   }
-
-  }
-
-
-
-
-
+}
